@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.bxz.mapper.CoinsMapper">
+    <resultMap id="BaseResultMap" type="Coins">
+        <id property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="coins" column="coins"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+
+    </resultMap>
+
+    <sql id="table">
+        coins
+    </sql>
+
+    <sql id="columns">
+        id,user_id,coins,create_time,update_time
+    </sql>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        SELECT <include refid="columns" />
+        FROM <include refid="table" />
+        WHERE id = #{id}
+    </select>
+    
+    <select id="selectByUserId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+
+        SELECT <include refid="columns" />
+        FROM <include refid="table" />
+        WHERE userid = #{userId}
+    </select>
+
+
+
+</mapper>
