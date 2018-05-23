@@ -9,4 +9,5 @@ public interface BaseMapper<T> {
 
     T selectByPrimaryKey(Object id);
 
+    int updateSelectiveByPrimaryKey(T model);
 }

@@ -14,4 +14,12 @@ public interface CoinsMapper extends BaseMapper<Coins> {
 
     Coins selectByUserId(@Param("userId") Long userId);
 
+    /**
+     * 金币数变更
+     * @param userId
+     * @param coins
+     * @return
+     */
+    int updateCoins(@Param("userId") Long userId,@Param("coins") Integer coins);
+
 }

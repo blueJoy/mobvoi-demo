@@ -13,9 +13,9 @@ spring:
 server:
   port: 8080
 # ops端口？
-#management:
-#  server:
-#    port: 8081
+management:
+  server:
+    port: 8081
 
 mybatis:
   mapperLocations: classpath*:mapper/*Mapper.xml
@@ -26,3 +26,7 @@ mybatis:
 ---
 spring:
  profiles: dev
+
+---
+ spring:
+  profiles: docker

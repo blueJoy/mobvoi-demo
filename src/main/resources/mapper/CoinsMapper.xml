@@ -30,9 +30,67 @@
 
         SELECT <include refid="columns" />
         FROM <include refid="table" />
-        WHERE userid = #{userId}
+        WHERE user_id = #{userId}
     </select>
 
 
+    <update id="updateSelectiveByPrimaryKey" parameterType="Coins">
+
+        UPDATE <include refid="table" />
+        <set>
+            <if test="userId != null">
+                user_id=#{userId},
+            </if>
+            <if test="coins != null">
+                coins=#{coins},
+            </if>
+            <if test="createTime != null">
+                create_time=#{createTime},
+            </if>
+            <if test="updateTime != null">
+                update_time=#{updateTime},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <insert id="insertSelective" parameterType="Coins" >
+        INSERT INTO <include refid="table" />
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="coins != null">
+                coins,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="userId != null">
+               #{userId},
+            </if>
+            <if test="coins != null">
+               #{coins},
+            </if>
+            <if test="createTime != null">
+                #{createTime},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateCoins" >
+        UPDATE <include refid="table" />
+        SET coins = coins + #{coins}
+        WHERE user_id = #{userId}
+        AND coins &gt;  #{coins}
+    </update>
 
 </mapper>

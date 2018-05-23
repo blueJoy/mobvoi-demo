@@ -27,5 +27,36 @@
         WHERE id = #{id}
     </select>
 
+    <insert id="insertSelective" parameterType="CoinsDetails" >
+        INSERT INTO <include refid="table" />
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="fromUserId != null">
+                from_user_id,
+            </if>
+            <if test="toUserId != null">
+                to_user_id,
+            </if>
+            <if test="changeCoins != null">
+                change_coins,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="fromUserId != null">
+               #{fromUserId},
+            </if>
+            <if test="toUserId != null">
+                #{toUserId},
+            </if>
+            <if test="changeCoins != null">
+                #{changeCoins},
+            </if>
+            <if test="createTime != null">
+                #{createTime},
+            </if>
+        </trim>
+    </insert>
 
 </mapper>

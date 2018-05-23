@@ -1,8 +1,9 @@
 package com.bxz.interceptor;
 
+import com.bxz.emuns.ErrorMessageEnum;
 import com.bxz.exception.base.RESTfull4xxBaseException;
 import com.bxz.exception.base.RestfullBaseException;
-import com.bxz.vo.request.ResponseBaseVO;
+import com.bxz.vo.reponse.ResponseBaseVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
@@ -33,6 +34,16 @@ public class ResponseAdvice implements ResponseBodyAdvice<Object> {
         return true;
     }
 
+    /**
+     * 统一返回结果的封装
+     * @param obj
+     * @param returnType
+     * @param selectedContentType
+     * @param selectedConverterType
+     * @param request
+     * @param response
+     * @return
+     */
     @Override
     public Object beforeBodyWrite(Object obj, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
         ResponseBaseVO responseModel = new ResponseBaseVO(EmptyMap);
@@ -47,6 +58,12 @@ public class ResponseAdvice implements ResponseBodyAdvice<Object> {
         }
     }
 
+    /**
+     * 统一异常处理
+     * @param exception
+     * @param response
+     * @return
+     */
     @ExceptionHandler(Exception.class)
     public ResponseBaseVO<Object> handleUnexpectedServerError(Exception exception, HttpServletResponse response){
 
@@ -57,14 +74,14 @@ public class ResponseAdvice implements ResponseBodyAdvice<Object> {
             responseBaseVO.setMessage(bce.getMessage());
             response.setStatus(this.getCode(exception));
             if(exception instanceof RESTfull4xxBaseException) {
-                log.warn("fexception:4xx异常警", bce);
+                log.warn("exception:4xx异常警", bce);
             } else {
                 log.error("exception:RESTfullBaseException", exception);
             }
         } else {
             log.error("exception:500Exception ", exception);
-            responseBaseVO.setMessage("系统繁忙，请稍后重试。");
-            response.setStatus(500);
+            responseBaseVO.setMessage(ErrorMessageEnum.SYSTEM_ERROR.getMessage());
+            response.setStatus(ErrorMessageEnum.SYSTEM_ERROR.getCode());
         }
 
         return responseBaseVO;
