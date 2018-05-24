@@ -8,11 +8,11 @@ case $1 in
         docker run -d -p 8080:8080 -p 8081:8081 mobvoi-demo/mobvoi-demo
     ;;
     "stop")
-        echo "stop"
+        echo "stop..."
         docker stop `docker ps | grep mobvoi-demo | awk '{print $1}'`
     ;;
     "restart")
-        echo "restart"
+        echo "restart..."
         docker restart `docker ps | grep mobvoi-demo | awk '{print $1}'`
     ;;
     "status")
