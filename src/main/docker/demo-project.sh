@@ -17,7 +17,7 @@ case $1 in
     ;;
     "status")
         echo "status"
-        docker status
+        docker stats
     ;;
     *)
     echo "Usage $0 (start|stop|restart|status)"
