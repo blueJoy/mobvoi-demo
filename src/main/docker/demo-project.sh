@@ -9,15 +9,15 @@ case $1 in
     ;;
     "stop")
         echo "stop"
-        docker stop mobvoi-demo/mobvoi-demo
+        docker stop `docker ps | grep mobvoi-demo | awk '{print $1}'`
     ;;
     "restart")
         echo "restart"
-        docker restart mobvoi-demo/mobvoi-demo
+        docker restart `docker ps | grep mobvoi-demo | awk '{print $1}'`
     ;;
     "status")
         echo "status"
-        docker stats
+        docker stats `docker ps | grep mobvoi-demo | awk '{print $1}'`
     ;;
     *)
     echo "Usage $0 (start|stop|restart|status)"
