@@ -13,15 +13,19 @@ spring:
 server:
   port: 8080
 # ops端口？
-management:
-  server:
-    port: 8081
 
 mybatis:
   mapperLocations: classpath*:mapper/*Mapper.xml
   typeAliasesPackage: com.bxz.entity
   configuration:
     mapUnderscoreToCamelCase: true
+endpoints:
+  shutdown:
+    enabled: true
+##暴露监控端口
+management:
+  port: 8081
+  context-path: /ops
 
 ---
 spring:

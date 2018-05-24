@@ -21,12 +21,12 @@
             }
    ```
   
-  ##### 错误说明
+   ##### 错误说明
   
    httpcode | 说明  
-        ------------ | -------------
-        422 | 参数校验失败  
-        404 | 不存在该用户  
+   ------------ | -------------
+   422 | 参数校验失败  
+   404 | 不存在该用户  
   
 
 
@@ -100,5 +100,22 @@
 
 #### 部署文档
 
+##### 环境准备
+- jdk8
+- mavnen
+- docker
 
+##### 代码覆盖率
+  - mvn cobertura:cobertura
+   
+   在target的site目录下的index查看代码覆盖率信息  
+        ps:该demo只是实现的controller的mock测试，覆盖率不高
+        
+##### 打包镜像
+  - mvn clean package docker:build
+
+
+##### 监控信息
+ - 查看内存线程信息 http://host:8081/ops/jstack
+   
     
